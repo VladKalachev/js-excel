@@ -1,0 +1,30 @@
+{
+  "name": "js-excel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladKalachev/js-excel.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "excel"
+  ],
+  "author": "Vlad Kalachev <vlvete1990@yandex.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladKalachev/js-excel/issues"
+  },
+  "homepage": "https://github.com/VladKalachev/js-excel#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
