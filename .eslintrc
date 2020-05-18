@@ -5,9 +5,9 @@
         "browser": true,
         "node": true
     },
-    "rules": [
-
-    ],
+    "rules": {
+        
+    },
     "extends": [
         "eslint:recommended", 
         "google"
