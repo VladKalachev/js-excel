@@ -6,7 +6,14 @@
         "node": true
     },
     "rules": {
-        "require-jsdoc" : "off"
+        "semi": "off",
+        "arrow-parens": "off",
+        "comma-dangle": "off",
+        "require-jsdoc": "off",
+        "eol-last": "off",
+        "no-unused-vars": "off",
+        "space-before-blocks": "off",
+        "indent": "off"
     },
     "extends": [
         "eslint:recommended", 
