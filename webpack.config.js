@@ -1,5 +1,5 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -14,7 +14,8 @@ const jsLoaders = () => {
     {
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env']
+        presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties']
       }
     }
   ]
@@ -60,10 +61,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { 
-                    from: path.resolve(__dirname, 'src/favicon.ico'), 
+                {
+                    from: path.resolve(__dirname, 'src/favicon.ico'),
                     to: path.resolve(__dirname, 'dist')
-                }  
+                }
             ]
         }),
         new MiniCssExtractPlugin({
@@ -86,8 +87,8 @@ module.exports = {
                 'sass-loader',
             ],
           },
-          { 
-              test: /\.js$/, 
+          {
+              test: /\.js$/,
               exclude: /node_modules/,
               use: jsLoaders()
            }
