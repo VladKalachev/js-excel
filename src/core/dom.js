@@ -1,7 +1,7 @@
 class Dom{
     constructor(selector){
         // #app
-        console.log('selector', selector);
+        // console.log('selector', selector);
         this.$el = typeof selector === 'string' ?
             document.querySelector(selector) :
             selector;
