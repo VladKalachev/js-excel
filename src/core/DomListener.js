@@ -18,13 +18,17 @@ export default class DomListenet {
                     in ${this.name || ''} Component`);
                 }
                 // console.log(metfod);
-                this.$root.on(listener, this[metfod].bind(this))
+                this[metfod] = this[metfod].bind(this);
+                this.$root.on(listener, this[metfod]);
             })
         })
     }
 
     removeDOMLicteners() {
-
+        this.listeners.forEach(listener => {
+            const metfod = getMethodName(listener);
+            this.$root.off(listener, this[metfod]);
+        })
     }
 }
 
