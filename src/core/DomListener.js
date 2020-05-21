@@ -1,3 +1,5 @@
+import {capitalize} from './utils';
+
 export default class DomListenet {
     constructor($root, listeners = []) {
         if (!$root) {
@@ -8,10 +10,24 @@ export default class DomListenet {
     }
 
     initDOMLicteners() {
-        console.log(this.listeners);
+        this.listeners.forEach(listener => {
+            this.$root.on(listener, () => {
+                const metfod = getMethodName(listener);
+                if (!this[metfod]){
+                    throw new Error(`Method ${metfod} is not implemented 
+                    in ${this.name || ''} Component`);
+                }
+                // console.log(metfod);
+                this.$root.on(listener, this[metfod].bind(this))
+            })
+        })
     }
 
     removeDOMLicteners() {
 
     }
+}
+
+function getMethodName(eventName) {
+    return 'on' + capitalize(eventName);
 }
