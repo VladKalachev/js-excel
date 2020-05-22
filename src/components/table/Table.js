@@ -1,12 +1,15 @@
-import {ExcelComponent} from '../../core/ExcelComponent';
-import createTable from './table.template';
+import {ExcelComponent} from '@core/ExcelComponent'
+import {createTable} from '@/components/table/table.template'
+import {resizeHandler} from '@/components/table/table.resize'
+import {shouldResize} from '@/components/table/table.functions'
+import {TableSelection} from '@/components/table/TableSelection'
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
 
     constructor($root) {
         super($root, {
-            listeners: ['click', 'mousedown', 'mousemove', 'mouseup']
+            listeners: ['mousedown']
         })
     }
 
@@ -14,19 +17,20 @@ export class Table extends ExcelComponent {
         return createTable(20);
     }
 
-    onClick() {
-        console.log('click')
+    prepare() {
+        this.selection = new TableSelection()
+    }
+
+    init() {
+        super.init()
+
+        const $cell = this.$root.find('[data-id="0:0"]')
+        this.selection.select($cell)
     }
 
     onMousedown(event){
-        console.log('mousedown', event.target)
-    }
-
-    onMousemove() {
-        console.log('mousemove')
-    }
-
-    onMouseup() {
-        console.log('mouseup')
+        if (shouldResize(event)) {
+            resizeHandler(this.$root, event)
+        }
     }
 }
