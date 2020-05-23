@@ -1,20 +1,21 @@
-import DomListener from '@core/DomListener';
+import {DomListener} from '@core/DomListener'
 
 export class ExcelComponent extends DomListener {
-  constructor($root, options = {}){
+  constructor($root, options = {}) {
     super($root, options.listeners)
-    this.name = options.name || '';
+    this.name = options.name || ''
     this.emitter = options.emitter
     this.unsubscribers = []
 
     this.prepare()
   }
 
+  // Настраивааем наш компонент до init
   prepare() {}
 
-  // Возаращяет шаблон компонента
+  // Возвращает шаблон компонента
   toHTML() {
-    return '';
+    return ''
   }
 
   // Уведомляем слушателей про событие event
@@ -31,13 +32,13 @@ export class ExcelComponent extends DomListener {
   // Инициализируем компонент
   // Добавляем DOM слушателей
   init() {
-    this.initDOMLicteners();
+    this.initDOMListeners()
   }
 
   // Удаляем компонент
   // Чистим слушатели
   destroy() {
-    this.removeDOMLicteners();
+    this.removeDOMListeners()
     this.unsubscribers.forEach(unsub => unsub())
   }
 }

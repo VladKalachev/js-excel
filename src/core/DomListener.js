@@ -1,37 +1,38 @@
-import {capitalize} from './utils';
+import {capitalize} from '@core/utils'
 
-export default class DomListenet {
-    constructor($root, listeners = []) {
-        if (!$root) {
-            throw new Error(`No $root provided for DomListener`);
-        }
-        this.$root = $root;
-        this.listeners = listeners;
+export class DomListener {
+  constructor($root, listeners = []) {
+    if (!$root) {
+      throw new Error(`No $root provided for DomListener!`)
     }
+    this.$root = $root
+    this.listeners = listeners
+  }
 
-    initDOMLicteners() {
-        this.listeners.forEach(listener => {
-            this.$root.on(listener, () => {
-                const metfod = getMethodName(listener);
-                if (!this[metfod]){
-                    throw new Error(`Method ${metfod} is not implemented 
-                    in ${this.name || ''} Component`);
-                }
-                // console.log(metfod);
-                this[metfod] = this[metfod].bind(this);
-                this.$root.on(listener, this[metfod]);
-            })
-        })
-    }
+  initDOMListeners() {
+    this.listeners.forEach(listener => {
+      const method = getMethodName(listener)
+      if (!this[method]) {
+        const name = this.name || ''
+        throw new Error(
+            `Method ${method} is not implemented in ${name} Component`
+        )
+      }
+      this[method] = this[method].bind(this)
+      // Тоже самое что и addEventListener
+      this.$root.on(listener, this[method])
+    })
+  }
 
-    removeDOMLicteners() {
-        this.listeners.forEach(listener => {
-            const metfod = getMethodName(listener);
-            this.$root.off(listener, this[metfod]);
-        })
-    }
+  removeDOMListeners() {
+    this.listeners.forEach(listener => {
+      const method = getMethodName(listener)
+      this.$root.off(listener, this[method])
+    })
+  }
 }
 
+// input => onInput
 function getMethodName(eventName) {
-    return 'on' + capitalize(eventName);
+  return 'on' + capitalize(eventName)
 }
