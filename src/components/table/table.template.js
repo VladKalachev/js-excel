@@ -22,7 +22,7 @@ function toCell(state, row) {
   return function(_, col) {
     const id = `${row}:${col}`
     const width = getWidth(state.colState, col)
-    const data = {}// = state.dataState[id]
+    const data = state.dataState[id]
     const styles = ''
     // = toInlineStyles({
     //   ...defaultStyles,
@@ -37,7 +37,7 @@ function toCell(state, row) {
         data-id="${id}"
         data-value="${data || ''}"
         style="${styles}; width: ${width}"
-      ></div>
+      >${data || ''}</div>
     `
   }
 }
