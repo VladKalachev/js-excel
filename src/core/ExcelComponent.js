@@ -6,6 +6,7 @@ export class ExcelComponent extends DomListener {
     this.name = options.name || ''
     this.store = options.store
     this.emitter = options.emitter
+    this.subscribe = options.subscribe || []
     this.unsubscribers = []
     this.storeSub = null
     this.prepare()
@@ -29,8 +30,10 @@ export class ExcelComponent extends DomListener {
     this.store.dispatch(action);
   }
 
-  $subscribe(fn) {
-    this.storeSub = this.store.subscribe(fn);
+  storeChanged() {}
+
+  isWatching(key) {
+    return this.subscribe.includes(key)
   }
 
   // Подписываемся на событие event
@@ -50,6 +53,5 @@ export class ExcelComponent extends DomListener {
   destroy() {
     this.removeDOMListeners()
     this.unsubscribers.forEach(unsub => unsub())
-    this.storeSub.unsubscribers()
   }
 }
