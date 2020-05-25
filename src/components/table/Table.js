@@ -52,18 +52,19 @@ export class Table extends ExcelComponent {
     })
   }
 
-
   selectCell($cell) {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
+    const styles = $cell.getStyles(Object.keys(defaultStyles))
+    this.$dispatch(actions.changeStyles(styles))
   }
 
   async resizeTable(event) {
     try {
-      const data = await resizeHandler(this.$root, event);
+      const data = await resizeHandler(this.$root, event)
       this.$dispatch(actions.tableResize(data))
-    } catch (error) {
-      console.warn('Resize error', error.message);
+    } catch (e) {
+      console.warn('Resize error', e.message)
     }
   }
 
@@ -77,7 +78,7 @@ export class Table extends ExcelComponent {
             .map(id => this.$root.find(`[data-id="${id}"]`))
         this.selection.selectGroup($cells)
       } else {
-        this.selection.select($target)
+        this.selectCell($target)
       }
     }
   }
